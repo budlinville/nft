@@ -9,6 +9,17 @@ contract ERC721 {
 	mapping(uint256 => address) private _tokenOwner;
 	mapping(address => uint256) private _ownedTokensCount;
 
+	function balanceOf(address owner) public view returns(uint256) {
+		require(owner != address(0), 'ERC721: owner does not exist');
+		return _ownedTokensCount[owner];
+	}
+
+	function ownerOf(uint256 tokenId) public view returns(address) {
+		address owner = _tokenOwner[tokenId];
+		require(owner != address(0), 'ERC721: owner does not exist');
+		return owner;
+	}
+
 	function _exists(uint256 tokenId) internal view returns(bool) {
 		address owner = _tokenOwner[tokenId];
 		return owner != address(0);
